@@ -94,6 +94,9 @@ export default function AdminPage() {
         setFormData({ nombre: '', mundo: '', tipo: '', habilidad: '', libro: '', descripcion: '', valor: '', imagen: '' });
     };
 
+    const hayErrores = Object.values(errores).some(error => error !== null && error !== undefined);
+    
+
     return (
         <>
             <Header />
@@ -106,7 +109,8 @@ export default function AdminPage() {
 
                     {exito && (
                         <div
-                            className="bg-green-50 border-l-4 border-green-600 text-green-800 p-4 mb-6 rounder-r"
+                            tabIndex="0"
+                            className="bg-green-50 border-l-4 border-green-600 text-green-800 p-4 mb-6 rounded-r"
                             role="status"
                             aria-live="polite"
                         >
@@ -121,6 +125,7 @@ export default function AdminPage() {
                             </label>
                             <input
                                 type="text"
+                                required
                                 ref={nombreRef}
                                 id="nombre"
                                 name="nombre"
@@ -144,6 +149,7 @@ export default function AdminPage() {
                             </label>
                             <input
                                 type="text"
+                                required
                                 ref={mundoRef}
                                 id="mundo"
                                 name="mundo"
@@ -166,6 +172,7 @@ export default function AdminPage() {
                                 Tipo *
                             </label>
                             <select name="tipo"
+                                required
                                 id="tipo"
                                 name="tipo"
                                 value={formData.tipo}
@@ -191,7 +198,8 @@ export default function AdminPage() {
                                 Habilidad *
                             </label>
                             <input 
-                                type="text" 
+                                type="text"
+                                required
                                 ref={habilidadRef}
                                 id="habilidad"
                                 name="habilidad"
@@ -229,6 +237,7 @@ export default function AdminPage() {
                             </label>
                             <input 
                                 type="text"
+                                required
                                 ref={descripcionRef}
                                 id="descripcion"
                                 name="descripcion"
@@ -252,6 +261,7 @@ export default function AdminPage() {
                             </label>
                             <input
                                 type="text"
+                                required
                                 ref={valorRef}
                                 id="valor"
                                 name="valor"
@@ -284,7 +294,9 @@ export default function AdminPage() {
                         </div>
 
                         <div className="pt-4 border-t border-slate-200">
-                            <button type="submit" className="w-full btn-cosmere disabled:opacity-50 disabled:cursor-not-allowed">
+                            <button type="submit"
+                            disabled={hayErrores}
+                            className="w-full btn-cosmere disabled:opacity-50 disabled:cursor-not-allowed">
                                 Registrar
                             </button>
                         </div>
