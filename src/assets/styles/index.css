@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+:root {
+  --color-primario: #0f172a;    
+  --color-secundario: #d97706;  
+  --color-acento: #fcd34d;      
+  --color-fondo: #f8fafc;       
+  --fuente-titulos: 'Georgia', serif;
+  --fuente-cuerpo: 'Arial', sans-serif;
+}
+
+body {
+  background-color: var(--color-fondo);
+  font-family: var(--fuente-cuerpo);
+  color: var(--color-primario);
+  margin: 0;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--fuente-titulos);
+}
+
+
+.btn-cosmere {
+  background-color: var(--color-secundario);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 9999px;
+  font-weight: bold;
+  font-size: 1.125rem;
+  transition: all 0.3s ease;
+  display: inline-block;
+  text-decoration: none;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.btn-cosmere:hover {
+  background-color: #b45309;
+  transform: translateY(-2px);
+}
+
+.tag-mundo {
+  background-color: var(--color-primario);
+  color: var(--color-acento);
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.tag-tipo {
+  background-color: #e2e8f0;
+  color: #334155;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
