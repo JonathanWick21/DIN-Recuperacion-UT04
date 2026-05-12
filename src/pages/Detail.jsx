@@ -1,43 +1,24 @@
 import { useParams, Link } from 'react-router-dom';
-import { cosmereData } from '../data/cosmereData';
+import { useApi } from '../hooks/useApi';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 export default function Detail() {
   const { id } = useParams();
-  const character = cosmereData.find(item => item.id === parseInt(id));
+  const { data: character, loading, error } = useApi(id);
 
-  if (!character) {
-    return (
-      <>
-        <Header />
-        <main className="container mx-auto px-4 py-20 min-h-screen text-center">
-          <h2 className="text-3xl font-bold text-red-600 mb-4" tabIndex="0" aria-live="assertive">
-            Entrada no encontrada
-          </h2>
-          <p className="text-slate-600 mb-8" tabIndex="0">
-            Ese archivo ha debido perderse en las brumas...
-          </p>
-          <Link 
-            to="/catalogo" 
-            className="text-amber-600 font-bold hover:underline focus:outline-none focus:ring-4 focus:ring-amber-500 rounded px-2"
-            aria-label="Volver al catálogo principal"
-          >
-            &larr; Volver al Archivo
-          </Link>
-        </main>
-        <Footer />
-      </>
-    );
-  }
+  if (loading) return <p>Cargando archivo...</p>;
+  if (error || !character) return <p>Archivo no encontrado en la base de datos.</p>;
+
+  console.log("Datos del personaje:", character);
 
   return (
     <>
       <Header />
       <main className="container mx-auto px-4 py-10 min-h-screen">
         <nav className="mb-8">
-          <Link 
-            to="/catalogo" 
+          <Link
+            to="/catalogo"
             className="text-slate-500 hover:text-amber-600 transition-colors font-semibold focus:outline-none focus:ring-2 focus:ring-amber-500 rounded px-2 py-1"
             aria-label="Volver al catálogo de personajes"
           >
@@ -46,11 +27,11 @@ export default function Detail() {
         </nav>
 
         <article className="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200 md:flex">
-          
+
           <div className="md:w-2/5 bg-slate-100">
-            <img 
-              src={character.imagenUrl} 
-              alt={`Retrato de ${character.nombre}`} 
+            <img
+              src={character.imagenUrl}
+              alt={`Retrato de ${character.nombre}`}
               className="w-full h-full object-cover object-center min-h-[400px]"
             />
           </div>
@@ -76,7 +57,7 @@ export default function Detail() {
               <p className="text-lg text-slate-600 leading-relaxed mb-6" tabIndex="0">
                 {character.descripcion}
               </p>
-              
+
               <div className="bg-slate-50 p-5 rounded-lg border border-slate-100 grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div tabIndex="0">
                   <p className="text-sm text-slate-400 font-bold uppercase tracking-wider mb-1">Habilidad / Magia</p>

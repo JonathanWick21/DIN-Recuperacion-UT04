@@ -1,8 +1,11 @@
 import { useRef, useState } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import { useApi } from "../hooks/useApi";
 
 export default function AdminPage() {
+
+    const { agregarPersonaje, loading, error: apiError } = useApi();
 
     const [formData, setFormData] = useState({
         nombre: '',
@@ -12,7 +15,7 @@ export default function AdminPage() {
         libro: '',
         descripcion: '',
         valor: '',
-        imagen: ''
+        imagenUrl: ''
     });
 
     const [errores, setErrores] = useState({});
@@ -36,7 +39,7 @@ export default function AdminPage() {
         setExito(false);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const tempErrors = {};
 
@@ -90,8 +93,9 @@ export default function AdminPage() {
         }
 
         console.log("Nueva entrada añadida al archivo:", formData);
+        await agregarPersonaje(formData);
         setExito(true);
-        setFormData({ nombre: '', mundo: '', tipo: '', habilidad: '', libro: '', descripcion: '', valor: '', imagen: '' });
+        setFormData({ nombre: '', mundo: '', tipo: '', habilidad: '', libro: '', descripcion: '', valor: '', imagenUrl: '' });
     };
 
     const hayErrores = Object.values(errores).some(error => error !== null && error !== undefined);
@@ -284,14 +288,14 @@ export default function AdminPage() {
                         </div>
 
                         <div>
-                            <label htmlFor="imagen" className="block text-slate-800 font-bold mb-2">
+                            <label htmlFor="imagenUrl" className="block text-slate-800 font-bold mb-2">
                                 Imagen
                             </label>
                             <input 
                                 type="text"
-                                id="imagen"
-                                name="imagen"
-                                value={formData.imagen}
+                                id="imagenUrl"
+                                name="imagenUrl"
+                                value={formData.imagenUrl}
                                 onChange={handleChange}
                                 className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-amber-500 focus:outline-none focus:ring-2 transition-colors"
                                 />
@@ -299,7 +303,7 @@ export default function AdminPage() {
 
                         <div className="pt-4 border-t border-slate-200">
                             <button type="submit"
-                            disabled={hayErrores}
+                            disabled={loading}
                             className="w-full btn-cosmere disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-4 focus:ring-amber-500 rounded-lg py-3">
                                 Registrar
                             </button>
