@@ -1,13 +1,5 @@
 import { Link } from 'react-router-dom';
 
-/**
- * Componente CosmereCard.
- * Renderiza la tarjeta individual de un personaje o artefacto.
- * Toda la tarjeta funciona como un enlace semántico.
- * * @param {Object} props - Propiedades del componente.
- * @param {Object} props.character - Datos de la entrada del catálogo.
- * @returns {JSX.Element}
- */
 export default function CharacterCard({ character }) {
   return (
     <Link 
